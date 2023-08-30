@@ -1,0 +1,213 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[letterpaper, margin=1.5in, headheight=16pt]{geometry}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{titling}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{cimatred}{RGB}{122,51,69}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=cimatred,
+    filecolor=cimatred,      
+    urlcolor=cimatred,
+    citecolor=cimatred
+}
+\urlstyle{same}
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corolario}[theorem]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{definition}{Definición}
+\newtheorem{plain}{Proposición}
+\newtheorem*{remark}{Observación}
+\spanishdecimal{.}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\comp}[1]{#1^\mathrm{C}}
+\newcommand{\mean}[1]{\mathbb{E}\left[#1\right]}
+
+\renewcommand{\baselinestretch}{1}
+\DeclareMathOperator{\indic} {\textup{\large 1}}
+\DeclareMathOperator{\Prob} {\mathbb P}
+\DeclareMathOperator{\E} {\mathbb E}
+\DeclareMathOperator{\V} {\mathbb V}
+\DeclareMathOperator{\Normal} {\mathcal{N}}
+
+
+\usepackage{fixdif}
+
+
+
+\author{José Miguel Saavedra Aguilar}
+\title{Ayudantía 2}
+\begin{document}
+
+\pagestyle{plain}
+
+\setlength{\parskip}{10pt}
+\setlength{\parindent}{5pt}
+\begin{minipage}{0.2\linewidth}
+\vspace{-1cm}
+\includegraphics[width=0.9\linewidth]{logoCIMAT11.png}
+\end{minipage}
+\begin{minipage}{0.7\linewidth}
+\vspace{-1cm}
+\noindent {\large \color{cimatred}\textbf{Centro de Investigación en Matemáticas, A.C.}}\\
+\textbf{Inferencia Estadística}
+\end{minipage}
+\vspace{-5mm}
+\begin{center}
+\textbf{\large \thetitle}\\   %TITULO
+\vspace{3mm}
+\theauthor
+\end{center}
+\vspace{-5mm}
+\rule{\linewidth}{0.1mm}
+
+Esto es un documento creado para ejemplificar el uso de knitr. Es recomendable consultar el libro de Yihui Xie \cite{Xie2015} para mayor información.
+<<external-code, cache=FALSE>>=
+read_chunk('Ayudantia 1.R')
+@
+
+\section{Ejemplo 1}
+
+Para una v.a. $X\sim \mathrm{exp}$, graficamos la función de densidad para distintas tasas $\lambda = 5, 2, 0.5$.
+
+
+<<echo=FALSE,message=FALSE>>=
+#Jose Miguel Saavedra Aguilar
+
+set.seed(157017)
+@
+
+<<inicializacion,echo=TRUE>>=
+@
+
+<<ej1>>=
+@
+<<echo=FALSE,cache=TRUE,densidades, fig.pos="htbp", fig.height=3, fig.width=4.5,fig.align='center', fig.cap="Densidad de una v.a. exponencial para distintas medias">>=
+plot(x,y1,type="l",col="red",xlab = "x", ylab = "f(x)")
+lines(x,y2,col="blue")
+lines(x,y3,col="green")
+@
+Ahora, graficamos las respectivas funciones de distribución de $X$.
+
+<<>>=
+# f es la función de distribución asociada evaluada en los puntos de x
+# Para obtener la función de densidad, se toma
+# "p"+nombre de la distribución, por ejemplo pnorm o pexp
+f1 <- pexp(x, rate = 5 )
+f2 <- pexp(x, rate = 0.5 )
+f3 <- pexp(x, rate = 2 )
+@
+
+<<echo=FALSE,cache=TRUE,distribuciones, fig.pos="ht", fig.height=2.5, fig.width=4.5,fig.align='center', fig.cap="Distribución exponencial para distintas medias">>=
+plot(x,f1,type="l",col="red",xlab = "x", ylab = "f(x)")
+lines(x,f2,col="blue")
+lines(x,f3,col="green")
+@
+
+
+Para $\lambda=0.5$, simulamos una muestra aleatoria de tamaño $n=100$ datos de $X$.
+
+<<>>=
+# Tomamos n=100 y simulamos n datos pseudoaleatorios de la distribución elegida
+# Para obtener los datos aleatorios, se toma
+# "r"+nombre de la distribución, por ejemplo rnorm o rexp
+n <- 100
+z <- rexp(n,rate = 0.5)
+@
+<<echo=FALSE,cache=TRUE,histograma, fig.pos="hb!", fig.height=3, fig.width=4.5,fig.align='center', fig.cap="Histograma de una m.a. Exponencial con $\\lambda=0.5$">>=
+hist(z,breaks="FD",freq=FALSE)
+lines(x,y2)
+@
+Los datos que simulamos tienen media muestral $\Sexpr{mean(z)}$ y varianza muestral $\Sexpr{var(z)}$.\\
+Ordenamos los puntos simulados en $x_{(1)},x_{(2)}, \ldots, x_{(n)}$. Les asociamos $k_i$ definido por
+\begin{align}
+k_i &= \frac{i}{n+1}
+\end{align}
+
+<<>>=
+#Ahora vamos a ordenar los datos como indica la tarea.
+z2 <- sort(z)
+# Inicializamos k =i/n+1
+k <- numeric()
+
+for (i in 1:n) {
+   k[i] <- i/(n+1)
+}
+@
+<<echo=FALSE,cache=TRUE,FDE, fig.pos="ht", fig.height=2.5, fig.width=4.5,fig.align='center', fig.cap="Comparación entre la función de densidad empírica y la teórica a partir de la muestra">>=
+#Graficamos los puntos y comparamos con la función de densidad teórica
+plot(z2,k,col = "red",type = "l")
+lines(x,f2,col="blue")
+@
+Para conocer más sobre la función de distribución empírica, pueden consultar \href{https://en.wikipedia.org/wiki/Empirical_distribution_function}{Wikipedia}.
+
+\section{Ejemplo 2}
+Una variable aleatoria discreta $X$ tiene función de masa de probabilidad:
+$$
+\begin{array}{cccccc}{x} & {0} & {1} & {2} & {3} & {4} \\ \hline p(x) & {0.1} & {0.2} & {0.2} & {0.2} & {0.3}\end{array}
+$$
+Utilicen el teorema de la transformación inversa para generar una muestra aleatoria de tamaño 1000 de la distribución de $X$. Construyan una tabla de frecuencias relativas y comparen las probabilidades empíricas con las teóricas.\\
+Repitan considerando la función de R sample.
+<<>>=
+#Ejemplo 2
+set.seed(157017)
+prob <- c(.1,.3,.5,.7,1)
+frec <- findInterval(runif(1000),prob) 
+table(frec)/1000
+set.seed(157017)
+frecSample<-sample(x=0:4,size=1000,replace = TRUE,prob = c(0.1,0.2,0.2,0.2,0.3))
+table(frecSample)/1000
+@
+
+\section{Ejemplo 3}
+Obtengan una muestra de $10,000$ números de la siguiente distribución discreta:
+$$
+p(x)=\frac{2 x}{k(k+1)}, x=1,2, \ldots, k
+$$
+para $k=100$
+<<>>=
+#Ejemplo 3
+p<-function(n){
+  values=sample(1:100,n,replace=T)
+  prob=(2*values)/(100*101)
+  return(prob)
+}
+head(p(10000),n=30)
+@
+
+\section{Ejemplo 4}
+Una compañía de seguros tiene 1000 asegurados, cada uno de los cuales presentará de manera independiente una reclamación en el siguiente mes con probabilidad $p = 0.09245$. Suponiendo que las cantidades de los reclamos hechos son variables aleatorias Gamma(7000,1), hagan simulación para estimar la probabilidad de que la suma de los reclamos exceda $\$ 500,000$.
+<<>>=
+#Ejemplo 4
+mayor <- 0
+for(i in 1:10000){
+  reclammaciones<-sum(rbinom(1000, 1, 0.09245)) 
+  montos <- sum(rgamma(reclammaciones, 7000, 1)) 
+  if(montos > 500000){
+    mayor= mayor+1
+  }
+}
+mayor/10000
+@
+
+\bibliography{biblio}
+\bibliographystyle{IEEEtranS}
+\end{document}
