@@ -1,9 +1,12 @@
 ## @knitr previa
 set.seed(300823)
+
+## @knitr setBootstrap
 n <- 300
 lambda <- 5
 x <- rexp(300, rate = lambda)
 
+## @knitr estadisticas
 est1 <- function(x) {
     # First Statistic, lambda estimator by the sample mean
     1/mean(x)
@@ -12,7 +15,8 @@ est1 <- function(x) {
 est2 <- function(x) {
     # Second Statistic, lambda estimator by the sample standard deviation
     n <- length(x)
-    sqrt((n-1) / sum((x - mean(x))^2))
+    mX <- mean(x)
+    sqrt((n-1) / sum((x - mX)^2))
 }
 
 
@@ -30,3 +34,10 @@ for(i in 1:k){
     lambdaEst2[i] <- est2(z)
 }
 
+## @knitr comparativo
+
+S1 <- sd(lambdaEst1)
+S2 <- sd(lambdaEst2)
+
+print(sprintf("La desviación estándar del estimador 1 es %2.3f",S1))
+print(sprintf("La desviación estándar del estimador 2 es %2.3f",S2))

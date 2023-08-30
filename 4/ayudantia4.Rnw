@@ -1,0 +1,123 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[letterpaper, margin=1.5in, headheight=16pt]{geometry}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{titling}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{cimatred}{RGB}{122,51,69}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=cimatred,
+    filecolor=cimatred,      
+    urlcolor=cimatred,
+    citecolor=cimatred
+}
+\urlstyle{same}
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corolario}[theorem]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{definition}{Definición}
+\newtheorem{plain}{Proposición}
+\newtheorem*{remark}{Observación}
+
+\newcommand{\Tr}[1]{\operatorname{Tr}\left(#1\right)}
+\newcommand{\diag}[1]{\operatorname{diag}\left(#1\right)}
+\newcommand{\frNm}[1]{\left\|#1\right\|_{\mathrm{F}}}
+
+
+\usepackage{bbm}
+\spanishdecimal{.}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\comp}[1]{#1^\mathrm{C}}
+\newcommand{\mean}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\cov}[1]{\mathrm{cov}\left[#1\right]}
+\newcommand{\prob}[1]{\mathbb{P}\left(#1\right)}
+\newcommand{\var}[1]{\mathrm{Var}\left(#1\right)}
+
+\renewcommand{\baselinestretch}{1}
+\DeclareMathOperator{\indic} {\mathbbm{1}}
+\DeclareMathOperator{\Prob} {\mathbb P}
+\DeclareMathOperator{\E} {\mathbb E}
+\DeclareMathOperator{\V} {\mathbb V}
+\DeclareMathOperator{\Normal} {\mathcal{N}}
+
+
+\usepackage{fixdif}
+
+
+
+\author{José Miguel Saavedra Aguilar}
+\title{Ayudantía 4}
+\begin{document}
+
+\pagestyle{plain}
+
+\setlength{\parskip}{10pt}
+\setlength{\parindent}{5pt}
+\begin{minipage}{0.2\linewidth}
+\vspace{-1cm}
+\includegraphics[width=0.9\linewidth]{logoCIMAT11.png}
+\end{minipage}
+\begin{minipage}{0.7\linewidth}
+\vspace{-1cm}
+\noindent {\large \color{cimatred}\textbf{Centro de Investigación en Matemáticas, A.C.}}\\
+\textbf{Inferencia Estadística}
+\end{minipage}
+\vspace{-5mm}
+\begin{center}
+\textbf{\large \thetitle}\\   %TITULO
+\vspace{3mm}
+\theauthor
+\end{center}
+\vspace{-5mm}
+\rule{\linewidth}{0.1mm}
+
+<<external-code, echo=FALSE, cache=FALSE>>=
+read_chunk('Ayudantia4.R')
+@
+Para esta ayudantía, nos basamos en el libro \cite{Wasserman2004}.\\
+<<previa,echo=FALSE>>=
+@
+El día de hoy, haremos bootstrap para estimar la desviación estándar de dos estimadores de la tasa $\lambda$ de una v.a. exponencial. Sea $X\sim \mathrm{exp}(\lambda = 5)$. Recordemos
+\begin{align*}
+  \mean{X} &= \frac{1}{\lambda}
+  \var{X} &= \frac{1}{\lambda^2}
+\end{align*}
+Utilizaremos dos estimadores obtenidos por el método de momentos,
+\begin{align*}
+  \hat{\lambda} &= \frac{n}{\sum\limits_{i=1}^n X_i}\\
+  \tilde{\lambda} &= \sqrt{\frac{n-1}{\sum\limits_{i=1}^n \left(X_i - \bar{X} \right)^2}}
+\end{align*}
+Iniciamos con una muestra aleatoria de $n=300$ v.a. exponenciales con $\lambda=5$.
+<<setBootstrap>>=
+@
+Ahora, definimos las estadísticas que utilizaremos.
+<<estadisticas>>=
+@
+Para el bootstrap, tomaremos $k=100$ muestras de tamaño $m=30$ para cada una de las estadísticas $\hat{\lambda}$ y $\tilde{\lambda}$.
+<<bootstrap>>=
+@
+Finalmente, estimamos la desviación estándar de las estadísticas $\hat{\lambda}$ y $\tilde{\lambda}$.
+<<comparativo>>=
+@
+
+\bibliography{biblio}
+\bibliographystyle{IEEEtranS}
+\end{document}
