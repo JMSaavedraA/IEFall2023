@@ -1,0 +1,317 @@
+\documentclass[10pt]{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[letterpaper, margin=1.5in, headheight=16pt]{geometry}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{titling}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{cimatred}{RGB}{122,51,69}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=cimatred,
+    filecolor=cimatred,      
+    urlcolor=cimatred,
+    citecolor=cimatred
+}
+\urlstyle{same}
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corolario}[theorem]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{definition}{Definición}
+\newtheorem{plain}{Proposición}
+\newtheorem*{remark}{Observación}
+\spanishdecimal{.}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\comp}[1]{#1^\mathrm{C}}
+\newcommand{\mean}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\cov}[1]{\mathrm{cov}\left[#1\right]}
+\newcommand{\prob}[1]{\mathbb{P}\left(#1\right)}
+\newcommand{\var}[1]{\mathrm{Var}\left(#1\right)}
+
+\renewcommand{\baselinestretch}{1}
+\DeclareMathOperator{\indic} {\textup{\large 1}}
+\DeclareMathOperator{\Prob} {\mathbb P}
+\DeclareMathOperator{\E} {\mathbb E}
+\DeclareMathOperator{\V} {\mathbb V}
+\DeclareMathOperator{\Normal} {\mathcal{N}}
+
+
+\usepackage{fixdif}
+
+
+\author{José Miguel Saavedra Aguilar}
+\title{Ayudantías de Modelos Estadísticos}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\pagestyle{plain}
+
+\setlength{\parskip}{10pt}
+\setlength{\parindent}{5pt}
+\begin{minipage}{0.2\linewidth}
+\vspace{-1cm}
+\includegraphics[width=0.9\linewidth]{logoCIMAT11.png}
+\end{minipage}
+\begin{minipage}{0.7\linewidth}
+\vspace{-1cm}
+\noindent {\large \color{cimatred}\textbf{Centro de Investigación en Matemáticas, A.C.}}\\
+\textbf{Inferencia Estadística}
+\end{minipage}
+\vspace{-5mm}
+\begin{center}
+\textbf{\large \thetitle}\\   %TITULO
+\vspace{3mm}
+\theauthor
+\end{center}
+\vspace{-5mm}
+\rule{\linewidth}{0.1mm}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in read\_chunk("{}Asistencia.R"{}): no se pudo encontrar la función "{}read\_chunk"{}}}\end{kframe}
+\end{knitrout}
+\section{Introducción a Inferencia Estadística}
+
+\subsection{Ejemplo 1}
+
+Para una v.a. $X\sim \mathrm{exp}$, graficamos la función de densidad para distintas tasas $\lambda = 5, 2, 0.5$.
+
+
+
+
+
+
+
+
+Ahora, graficamos las respectivas funciones de distribución de $X$.
+
+
+
+
+
+
+Para $\lambda=0.5$, simulamos una muestra aleatoria de tamaño $n=100$ datos de $X$.
+
+
+
+
+%Los datos que simulamos tienen media muestral $mean(z)$ y varianza muestral $var(z)$.\\
+Ordenamos los puntos simulados en $x_{(1)},x_{(2)}, \ldots, x_{(n)}$. Les asociamos $k_i$ definido por
+\begin{align}
+k_i &= \frac{i}{n+1}
+\end{align}
+
+
+
+Para conocer más sobre la función de distribución empírica, pueden consultar \href{https://en.wikipedia.org/wiki/Empirical_distribution_function}{Wikipedia}.
+\section{Ejemplos de Knitr}
+Se ejemplifica el uso de knitr. Es recomendable consultar el libro de Yihui Xie \cite{Xie2015} para mayor información.
+\subsection{Ejemplo 2}
+Una variable aleatoria discreta $X$ tiene función de masa de probabilidad:
+$$
+\begin{array}{cccccc}{x} & {0} & {1} & {2} & {3} & {4} \\ \hline p(x) & {0.1} & {0.2} & {0.2} & {0.2} & {0.3}\end{array}
+$$
+Utilicen el teorema de la transformación inversa para generar una muestra aleatoria de tamaño 1000 de la distribución de $X$. Construyan una tabla de frecuencias relativas y comparen las probabilidades empíricas con las teóricas.\\
+Repitan considerando la función de R sample.
+
+
+\subsection{Ejemplo 3}
+Obtengan una muestra de $10,000$ números de la siguiente distribución discreta:
+$$
+p(x)=\frac{2 x}{k(k+1)}, x=1,2, \ldots, k
+$$
+para $k=100$
+
+
+\subsection{Ejemplo 4}
+Una compañía de seguros tiene 1000 asegurados, cada uno de los cuales presentará de manera independiente una reclamación en el siguiente mes con probabilidad $p = 0.09245$. Suponiendo que las cantidades de los reclamos hechos son variables aleatorias Gamma(7000,1), hagan simulación para estimar la probabilidad de que la suma de los reclamos exceda $\$ 500,000$.
+
+
+\section{Tarea 3}
+\subsection{Ejercicio 1}
+Simula las siguientes muestras Poisson, todas con $\lambda = 3$, pero de distintos tamaños, $n = 10,20,40,80,200$. Para cada muestra de estas tres calcula los tres estimadores de momentos dados en las notas en la pág. 3, $\lambda_1 , \lambda_2$ y $\lambda_3$ .
+
+
+\subsection{Ejercicio 2}
+Simula una muestra de $n = 15$ variables aleatorias independientes $X_1, ..., X_n$, idénticamente distribuidas como normales con media $\mu = 60$ y parámetro de escala$ \sigma = 5$.\\
+
+Calcula los estimadores de momentos de $\mu$ y $\sigma$ basados en ecuaciones de los primeros dos momentos, los primeros no centrados y los segundos momentos centrados. Denota a estos estimadores como $\hat{\mu}$y $\hat{\sigma}$.
+
+En una misma figura, grafica la función de distribución teórica con línea continua, la distribución estimada con guiones y la función de distribución empírica, graficando puntos de las siguientes coordenadas
+$$\left( x_i ,  \frac{i}{n+1} \right)$$
+para $i=1,...,n$.
+
+Repite lo mismo pero ahora para $n=30$ y luego para $n=100$.
+
+
+
+
+
+\section{Bootstrap no paramétrico}
+Para esta ayudantía, nos basamos en el libro \cite{Wasserman2004}. Haremos bootstrap no paramétrico para estimar la desviación estándar de dos estimadores de la tasa $\lambda$ de una v.a. exponencial. Sea $X\sim \mathrm{exp}(\lambda = 5)$. Recordemos
+\begin{align*}
+  \mean{X} &= \frac{1}{\lambda}\\
+  \var{X} &= \frac{1}{\lambda^2}
+\end{align*}
+Utilizaremos dos estimadores obtenidos por el método de momentos,
+\begin{align*}
+  \hat{\lambda} &= \frac{n}{\sum\limits_{i=1}^n X_i}\\
+  \tilde{\lambda} &= \sqrt{\frac{n-1}{\sum\limits_{i=1}^n \left(X_i - \bar{X} \right)^2}}
+\end{align*}
+Iniciamos con una muestra aleatoria de $n=300$ v.a. exponenciales con $\lambda=5$.
+
+Ahora, definimos las estadísticas que utilizaremos.
+
+Para el bootstrap, tomaremos $k=100$ muestras de tamaño $m=30$ para cada una de las estadísticas $\hat{\lambda}$ y $\tilde{\lambda}$.
+
+Finalmente, estimamos la desviación estándar de las estadísticas $\hat{\lambda}$ y $\tilde{\lambda}$.
+
+
+\section{Bootstrap paramétrico}
+Haremos bootstrap paramétrico para estimar la desviación estándar de dos estimadores de la tasa $\lambda$ de una v.a. exponencial. Sea $X\sim \mathrm{exp}(\lambda = 5)$. Recordemos
+\begin{align*}
+  \mean{X} &= \frac{1}{\lambda}
+  \var{X} &= \frac{1}{\lambda^2}
+\end{align*}
+Utilizaremos dos estimadores obtenidos por el método de momentos,
+\begin{align*}
+  \hat{\lambda} &= \frac{n}{\sum\limits_{i=1}^n X_i}\\
+  \tilde{\lambda} &= \sqrt{\frac{n-1}{\sum\limits_{i=1}^n \left(X_i - \bar{X} \right)^2}}
+\end{align*}
+Iniciamos con una muestra aleatoria de $n=300$ v.a. exponenciales con $\lambda=5$.
+
+Ahora, definimos las estadísticas que utilizaremos.
+
+Para el bootstrap paramétrico, tomaremos $k=100$ muestras de tamaño $m=30$ para cada una de las estadísticas $\hat{\lambda}$ y $\tilde{\lambda}$, considerando la tasa $\lambda=\hat{\lambda}$.
+
+Finalmente, estimamos la desviación estándar de las estadísticas $\hat{\lambda}$ y $\tilde{\lambda}$.
+
+
+\section{Bootstrap paramétrico con intervalos de confianza}
+Haremos bootstrap paramétrico para estimar la desviación estándar del cuantil muestral 0.975 de una muestra normal. Sea $X\sim \mathrm{Normal}(\mu = 0.2, \sigma = 0.2)$.
+
+Nuestro estimador será el cuantil muestral 0.975:
+
+
+Para el bootstrap paramétrico, tomaremos $k=100$ muestras de tamaño $m=30$ para cada el cuantil muestral 0.975, considerando los EMVs de una Normal:
+\begin{align*}
+  \hat{\mu} &= \frac{\sum\limits_{i=1}^n X_i}{n}\\
+  \hat{\sigma} &= \sqrt{\frac{\sum\limits_{i=1}^n \left(X_i - \bar{X} \right)^2}{n-1}}
+\end{align*}
+
+Finalmente, estimamos la desviación estándar del cuantil muestral 0.975. Además, tomaremos intervalos del $96\%$ de confianza considerando el teorema del límite central:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{S1} \hlkwb{<-} \hlkwd{quantile}\hlstd{(meanEst1,} \hlnum{0.02}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objeto 'meanEst1' no encontrado}}\begin{alltt}
+\hlstd{S2} \hlkwb{<-} \hlkwd{quantile}\hlstd{(meanEst1,} \hlnum{0.98}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objeto 'meanEst1' no encontrado}}\begin{alltt}
+\hlstd{T1} \hlkwb{<-} \hlkwd{mean}\hlstd{(meanEst1)} \hlopt{+} \hlkwd{sd}\hlstd{(meanEst1)} \hlopt{/} \hlkwd{sqrt}\hlstd{(k)} \hlopt{*} \hlkwd{qnorm}\hlstd{(}\hlnum{0.02}\hlstd{, k} \hlopt{-} \hlnum{1}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objeto 'meanEst1' no encontrado}}\begin{alltt}
+\hlstd{T2} \hlkwb{<-} \hlkwd{mean}\hlstd{(meanEst1)} \hlopt{+} \hlkwd{sd}\hlstd{(meanEst1)} \hlopt{/} \hlkwd{sqrt}\hlstd{(k)} \hlopt{*} \hlkwd{qnorm}\hlstd{(}\hlnum{0.98}\hlstd{, k} \hlopt{-} \hlnum{1}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objeto 'meanEst1' no encontrado}}\begin{alltt}
+\hlkwd{print}\hlstd{(}\hlkwd{sprintf}\hlstd{(}\hlstr{"El cuantil empírico 0.02 es %2.3f"}\hlstd{, S1))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objeto 'S1' no encontrado}}\begin{alltt}
+\hlkwd{print}\hlstd{(}\hlkwd{sprintf}\hlstd{(}\hlstr{"El cuantil empírico 0.98 es %2.3f"}\hlstd{, S2))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objeto 'S2' no encontrado}}\begin{alltt}
+\hlkwd{print}\hlstd{(}\hlkwd{sprintf}\hlstd{(}\hlstr{"El cuantil T 0.02 es %2.3f"}\hlstd{, T1))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objeto 'T1' no encontrado}}\begin{alltt}
+\hlkwd{print}\hlstd{(}\hlkwd{sprintf}\hlstd{(}\hlstr{"El cuantil T 0.98 es %2.3f"}\hlstd{, T2))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objeto 'T2' no encontrado}}\end{kframe}
+\end{knitrout}
+
+\bibliography{biblio}
+\bibliographystyle{IEEEtranS}
+\end{document}

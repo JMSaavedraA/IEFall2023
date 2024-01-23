@@ -19,13 +19,13 @@ f2 <- pexp(x, rate = 0.5)
 f3 <- pexp(x, rate = 2)
 
 
-## @knitr ej3
+## @knitr t1ej3
 # Tomamos n=100 y simulamos n datos pseudoaleatorios de la distribución elegida
 # Para obtener los datos aleatorios, se toma "r"+nombre de la distribución, por ejemplo rnorm o rexp
 n <- 100
 z <- rexp(n, rate = 0.5)
 
-## @knitr ej4
+## @knitr t1ej4
 #Ahora vamos a ordenar los datos como indica la tarea.
 z2 <- sort(z)
 # Inicializamos k =i/n+1
@@ -34,3 +34,9 @@ k <- numeric()
 for (i in 1:n) {
   k[i] <- i / (n + 1)
 }
+
+## @knitr t1gr1
+#Graficamos los puntos y comparamos con la función de densidad teórica
+plot(z2,k,col = "red",type = "l")
+lines(x,f2,col="blue")
+
