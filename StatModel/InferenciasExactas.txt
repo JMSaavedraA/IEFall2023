@@ -1,0 +1,35 @@
+EMVs con datos exactos:
+Normal mu y sigma                                : [17.940721738000025, 14.939133670498595]
+LogNormal mu y sigma                             : [2.47695254552508, 1.0155115123873184]
+Exponential media                                : 17.940721738000025
+Gamma forma, media y escala                      : [1.3617364636588356, 17.940721738000025, 13.174885315030256]
+Weibull forma beta y escala sigma                : [1.2066291808132406, 19.117861834130018]
+Gumbel minima, localización aGum, y escala bGum  : [26.15260357134711, 17.463347978290443]
+Gaussiana Inversa media y forma                  : [17.940721738000025, 10.399502286718253]
+
+Criterio de Información de Akaike:
+Gumbel             : 133.9101860540526
+Normal             : 127.68768171936784
+Gaussiana Inversa  : 122.90465132543149
+Lognormal          : 121.33850552118236
+Weibull            : 119.81999663606736
+Gamma              : 119.80630879656101
+Exponencial        : 118.61219259437505
+
+Estadísticas de Anderson Darling:
+Gamma              : 0.27898870780561325
+Weibull            : 0.28141642943806744
+Exponencial        : 0.3709407252421908
+Lognormal          : 0.4506689838664997
+Gaussiana Inversa  : 0.8670492692724228
+Normal             : 0.8919672580226994
+Gumbel             : 1.3314930050469265
+
+Promedios ponderados de distancias verticales:
+Exponencial        : 0.401315178573097
+Gamma              : 0.47915508702712084
+Weibull            : 0.484658080420408
+Lognormal          : 0.5601409842671786
+Normal             : 0.7857669756947787
+Gaussiana Inversa  : 0.8082880970181587
+Gumbel             : 1.0354610873912216

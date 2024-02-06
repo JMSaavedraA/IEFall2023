@@ -217,123 +217,153 @@ n <- 300
 lambda <- 5
 x <- rexp(300, rate = lambda)
 
-## @knitr t4estadisticas
-est1 <- function(x) {
-  # First Statistic, lambda estimator by the sample mean
-  1 / mean(x)
-}
-
-est2 <- function(x) {
-  # Second Statistic, lambda estimator by the sample standard deviation
-  n <- length(x)
-  mX <- mean(x)
-  sqrt((n - 1) / sum((x - mX)^2))
-}
-
 
 ## @knitr t4bootstrap
-
+r <- mean(x)
 k <- 100
 m <- 30
+q1 <- 0.025
+q2 <- 0.975
 
-lambdaEst1 <- numeric(k)
-lambdaEst2 <- numeric(k)
+q1Est <- numeric(k)
+q2Est <- numeric(k)
 
-for(i in 1:k){
-    z <- sample(x, size = m, replace = FALSE)
-    lambdaEst1[i] <- est1(z)
-    lambdaEst2[i] <- est2(z)
+for (i in 1:k){
+  z <- sample(x,size = m, replace = FALSE)
+  q1Est[i] <- quantile(z,q1)
+  q2Est[i] <- quantile(z,q2)
 }
 
 ## @knitr t4comparativo
 
-S1 <- sd(lambdaEst1)
-S2 <- sd(lambdaEst2)
+Q1 <- mean(q1Est)
+Q2 <- mean(q2Est)
 
-print(sprintf("La desviación estándar del estimador 1 es %2.3f", S1))
-print(sprintf("La desviación estándar del estimador 2 es %2.3f", S2))
+S1 <- sd(q1Est)
+S2 <- sd(q2Est)
 
+print(sprintf("La media del cuantil %1.3f es %2.3f", q1, Q1))
+print(sprintf("La media del cuantil %1.3f es %2.3f", q2, Q2))
+print(sprintf("La desviación estándar del cuantil %1.3f es %2.3f", q1, S1))
+print(sprintf("La desviación estándar del cuantil %1.3f es %2.3f", q2, S2))
 
 ## @knitr t5setBootstrap
 n <- 300
 lambda <- 5
 x <- rexp(300, rate = lambda)
 
-## @knitr t5estadisticas
-est1 <- function(x) {
-  # First Statistic, lambda estimator by the sample mean
-  1 / mean(x)
-}
-
-est2 <- function(x) {
-  # Second Statistic, lambda estimator by the sample standard deviation
-  n <- length(x)
-  mX <- mean(x)
-  sqrt((n - 1) / sum((x - mX)^2))
-}
-
 
 ## @knitr t5bootstrap
 r <- mean(x)
 k <- 100
 m <- 30
+q1 <- 0.025
+q2 <- 0.975
 
-lambdaEst1 <- numeric(k)
-lambdaEst2 <- numeric(k)
+q1Est <- numeric(k)
+q2Est <- numeric(k)
 
 for (i in 1:k){
   z <- rexp(m, rate = 1 / r)
-  lambdaEst1[i] <- est1(z)
-  lambdaEst2[i] <- est2(z)
+  rBoot <- mean(z)
+  q1Est[i] <- qexp(q1, rate = 1 / rBoot)
+  q2Est[i] <- qexp(q2, rate = 1 / rBoot)
 }
 
 ## @knitr t5comparativo
 
-S1 <- sd(lambdaEst1)
-S2 <- sd(lambdaEst2)
+Q1 <- mean(q1Est)
+Q2 <- mean(q2Est)
 
-print(sprintf("La desviación estándar del estimador 1 es %2.3f", S1))
-print(sprintf("La desviación estándar del estimador 2 es %2.3f", S2))
+S1 <- sd(q1Est)
+S2 <- sd(q2Est)
 
+print(sprintf("La media del cuantil %1.3f es %2.3f", q1, Q1))
+print(sprintf("La media del cuantil %1.3f es %2.3f", q2, Q2))
+print(sprintf("La desviación estándar del cuantil %1.3f es %2.3f", q1, S1))
+print(sprintf("La desviación estándar del cuantil %1.3f es %2.3f", q2, S2))
 
 ## @knitr t6setBootstrap
 n <- 300
-mu <- .2
-sigma <- .2
-x <- rnorm(300, mean = mu, sd = sigma)
+lambda <- 5
+x <- rexp(300, rate = lambda)
 
-## @knitr t6estadisticas
-est1 <- function(x) {
-  # First Statistic, lambda estimator by the sample mean
-  quantile(x, 0.975)
-}
-
-
-muEst <- mean(x)
-sigmaEst <- sd(x)
 
 ## @knitr t6bootstrap
-
+r <- mean(x)
 k <- 100
 m <- 30
+q1 <- 0.025
+q2 <- 0.975
 
-meanEst1 <- numeric(k)
+q1Est <- numeric(k)
+q2Est <- numeric(k)
 
 for (i in 1:k){
-  #z <- sample(x, size = m, replace = FALSE)
-  z <- rnorm(m, mean = muEst, sd = sigmaEst)
-  meanEst1[i] <- est1(z)
+  z <- rexp(m, rate = 1 / r)
+  rBoot <- mean(z)
+  q1Est[i] <- qexp(q1, rate = 1 / rBoot)
+  q2Est[i] <- qexp(q2, rate = 1 / rBoot)
 }
 
-## @knitr t6comparativo
+## @knitr t6normal
 
-S1 <- quantile(meanEst1, 0.02)
-S2 <- quantile(meanEst1, 0.98)
+Q1 <- mean(q1Est)
+Q2 <- mean(q2Est)
 
-T1 <- mean(meanEst1) + sd(meanEst1) / sqrt(k) * qt(0.02, k - 1)
-T2 <- mean(meanEst1) + sd(meanEst1) / sqrt(k) * qt(0.98, k - 1)
+S1 <- sd(q1Est)  # R uses ddof=1 by default for unbiased standard deviation
+S2 <- sd(q2Est)
 
-print(sprintf("El cuantil empírico 0.02 es %2.3f", S1))
-print(sprintf("El cuantil empírico 0.98 es %2.3f", S2))
-print(sprintf("El cuantil T 0.02 es %2.3f", T1))
-print(sprintf("El cuantil T 0.98 es %2.3f", T2))
+T1L <- Q1 - S1 * qnorm(0.975)
+T1R <- Q1 + S1 * qnorm(0.975)
+
+T2L <- Q2 - S2 * qnorm(0.975)
+T2R <- Q2 + S2 * qnorm(0.975)
+
+q1_real <- qexp(q1, rate = lambda)
+q2_real <- qexp(q2, rate = lambda)
+
+print("Por el método normal:")
+print(sprintf("El intervalo de confianza para el cuantil %.3f es (%.5f, %.5f)", q1, T1L, T1R))
+if (T1L < q1_real && q1_real < T1R) {
+  print(sprintf("El cuantil %.3f está en el intervalo de confianza", q1))
+} else {
+  print(sprintf("El cuantil %.3f no está en el intervalo de confianza", q1))
+}
+
+print(sprintf("El intervalo de confianza para el cuantil %.3f es (%.5f, %.5f)", q2, T2L, T2R))
+if (T2L < q2_real && q2_real < T2R) {
+  print(sprintf("El cuantil %.3f está en el intervalo de confianza", q2))
+} else {
+  print(sprintf("El cuantil %.3f no está en el intervalo de confianza", q2))
+}
+
+## @knitr t6pivotal
+
+q1_N <- qexp(q1, rate = 1 / r)
+q2_N <- qexp(q2, rate = 1 / r)
+
+q1_R <- quantile(q1Est, 0.025)
+q1_L <- quantile(q1Est, 0.975)
+q2_R <- quantile(q2Est, 0.025)
+q2_L <- quantile(q2Est, 0.975)
+
+P1L <- 2 * q1_N - q1_L
+P1R <- 2 * q1_N - q1_R
+P2L <- 2 * q2_N - q2_L
+P2R <- 2 * q2_N - q2_R
+
+print("Por el método pivotal:")
+print(sprintf("El intervalo de confianza para el cuantil %.3f es (%.5f, %.5f)", q1, P1L, P1R))
+if (P1L < q1_real && q1_real < P1R) {
+  print(sprintf("El cuantil %.3f está en el intervalo de confianza", q1))
+} else {
+  print(sprintf("El cuantil %.3f no está en el intervalo de confianza", q1))
+}
+
+print(sprintf("El intervalo de confianza para el cuantil %.3f es (%.5f, %.5f)", q2, P2L, P2R))
+if (P2L < q2_real && q2_real < P2R) {
+  print(sprintf("El cuantil %.3f está en el intervalo de confianza", q2))
+} else {
+  print(sprintf("El cuantil %.3f no está en el intervalo de confianza", q2))
+}

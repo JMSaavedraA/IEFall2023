@@ -43,6 +43,7 @@
 \newcommand{\cov}[1]{\mathrm{cov}\left[#1\right]}
 \newcommand{\prob}[1]{\mathbb{P}\left(#1\right)}
 \newcommand{\var}[1]{\mathrm{Var}\left(#1\right)}
+\newcommand{\sd}[1]{\mathrm{sd}\left(#1\right)}
 
 \renewcommand{\baselinestretch}{1}
 \DeclareMathOperator{\indic} {\textup{\large 1}}
@@ -183,83 +184,56 @@ Repite lo mismo pero ahora para $n=30$ y luego para $n=100$.
 @
 
 \section{Bootstrap no paramétrico}
-Para esta ayudantía, nos basamos en el libro \cite{Wasserman2004}. Haremos bootstrap no paramétrico para estimar la desviación estándar de dos estimadores de la tasa $\lambda$ de una v.a. exponencial. Sea $X\sim \mathrm{exp}(\lambda = 5)$. Recordemos
-\begin{align*}
-  \mean{X} &= \frac{1}{\lambda}\\
-  \var{X} &= \frac{1}{\lambda^2}
-\end{align*}
-Utilizaremos dos estimadores obtenidos por el método de momentos,
-\begin{align*}
-  \hat{\lambda} &= \frac{n}{\sum\limits_{i=1}^n X_i}\\
-  \tilde{\lambda} &= \sqrt{\frac{n-1}{\sum\limits_{i=1}^n \left(X_i - \bar{X} \right)^2}}
-\end{align*}
-Iniciamos con una muestra aleatoria de $n=300$ v.a. exponenciales con $\lambda=5$.
+Para esta ayudantía, nos basamos en el libro \cite{Wasserman2004}. Haremos bootstrap no paramétrico para estimar los cuantiles 0.025 y 0.975 de una v.a. exponencial. Sea $X\sim \mathrm{exp}(\lambda = 5)$. Iniciamos con una muestra aleatoria de $X$ con $n=300$.
 <<t4setBootstrap>>=
 @
-Ahora, definimos las estadísticas que utilizaremos.
-<<t4estadisticas>>=
-@
-Para el bootstrap, tomaremos $k=100$ muestras de tamaño $m=30$ para cada una de las estadísticas $\hat{\lambda}$ y $\tilde{\lambda}$.
+Para el bootstrap, tomaremos $K=100$ muestras de tamaño $m=30$, de las cuales obtendremos el cuantil empírico 0.025 $q_1^k$ y 0.975 $q_2^k$.
 <<t4bootstrap>>=
 @
-Finalmente, estimamos la desviación estándar de las estadísticas $\hat{\lambda}$ y $\tilde{\lambda}$.
+Finalmente, mostramos la estimación de la media y la desviación estándar de los cuantiles $\overline{q_1}$, $\overline{q_2}$, $\sd{q_1}$, $\sd{q_2}$ obtenida por bootstrap no paramétrico.
 <<t4comparativo>>=
 @
 
 \section{Bootstrap paramétrico}
-Haremos bootstrap paramétrico para estimar la desviación estándar de dos estimadores de la tasa $\lambda$ de una v.a. exponencial. Sea $X\sim \mathrm{exp}(\lambda = 5)$. Recordemos
+Haremos bootstrap paramétrico para estimar el cuantil 0.025 y 0.975 de una muestra exponencial. Sea $X\sim \mathrm{exp}(\lambda = 5)$. Recordemos
 \begin{align*}
   \mean{X} &= \frac{1}{\lambda}
-  \var{X} &= \frac{1}{\lambda^2}
 \end{align*}
-Utilizaremos dos estimadores obtenidos por el método de momentos,
-\begin{align*}
-  \hat{\lambda} &= \frac{n}{\sum\limits_{i=1}^n X_i}\\
-  \tilde{\lambda} &= \sqrt{\frac{n-1}{\sum\limits_{i=1}^n \left(X_i - \bar{X} \right)^2}}
-\end{align*}
-Iniciamos con una muestra aleatoria de $n=300$ v.a. exponenciales con $\lambda=5$.
+Por lo que el estimador de $\lambda$ por el método de momentos es:
+\begin{align}
+  \hat{\lambda} &= \frac{1}{\mean{X}}
+\end{align}
+Iniciamos con una muestra aleatoria de $X$ con $n=300$.
 <<t5setBootstrap>>=
 @
-Ahora, definimos las estadísticas que utilizaremos.
-<<t5estadisticas>>=
-@
-Para el bootstrap paramétrico, tomaremos $k=100$ muestras de tamaño $m=30$ para cada una de las estadísticas $\hat{\lambda}$ y $\tilde{\lambda}$, considerando la tasa $\lambda=\hat{\lambda}$.
+Para el bootstrap, tomaremos $K=100$ muestras de tamaño $m=30$, de las cuales obtendremos el estimador por el método de momentos de cada muestra $\hat{\lambda}_k$, para posteriormente encontrar los cuantiles teórico 0.025 $q_1^k$ y 0.975 $q_2^k$..
 <<t5bootstrap>>=
 @
-Finalmente, estimamos la desviación estándar de las estadísticas $\hat{\lambda}$ y $\tilde{\lambda}$.
+Finalmente, mostramos la estimación de la media y la desviación estándar de los cuantiles $\overline{q_1}$, $\overline{q_2}$, $\sd{q_1}$, $\sd{q_2}$ obtenida por bootstrap paramétrico.
 <<t5comparativo>>=
 @
 
-\section{Bootstrap paramétrico con intervalos de confianza}
-Haremos bootstrap paramétrico para estimar la desviación estándar del cuantil muestral 0.975 de una muestra normal. Sea $X\sim \mathrm{Normal}(\mu = 0.2, \sigma = 0.2)$.
+\section{Intervalos de confianza a partir de bootstrap paramétrico}
+Haremos bootstrap paramétrico para estimar intervalos del 95\% de confianza de los cuantiles 0.025 y 0.975 de una muestra exponencial. Sea $X\sim \mathrm{exp}(\lambda = 5)$. Recordemos
+\begin{align*}
+  \mean{X} &= \frac{1}{\lambda}
+\end{align*}
+Por lo que el estimador de $\lambda$ por el método de momentos es:
+\begin{align}
+  \hat{\lambda} &= \frac{1}{\mean{X}}
+\end{align}
+Iniciamos con una muestra aleatoria de $X$ con $n=300$.
 <<t6setBootstrap>>=
 @
-Nuestro estimador será el cuantil muestral 0.975:
-<<t6estadisticas>>=
-@
-
-Para el bootstrap paramétrico, tomaremos $k=100$ muestras de tamaño $m=30$ para cada el cuantil muestral 0.975, considerando los EMVs de una Normal:
-\begin{align*}
-  \hat{\mu} &= \frac{\sum\limits_{i=1}^n X_i}{n}\\
-  \hat{\sigma} &= \sqrt{\frac{\sum\limits_{i=1}^n \left(X_i - \bar{X} \right)^2}{n-1}}
-\end{align*}
+Para el bootstrap, tomaremos $K=100$ muestras de tamaño $m=30$, de las cuales obtendremos el estimador por el método de momentos de cada muestra $\hat{\lambda}_k$, para posteriormente encontrar los cuantiles teórico 0.025 $q_1^k$ y 0.975 $q_2^k$..
 <<t6bootstrap>>=
 @
-Finalmente, estimamos la desviación estándar del cuantil muestral 0.975. Además, tomaremos intervalos del $96\%$ de confianza considerando el teorema del límite central:
-<<t6comparativo>>=
-
-S1 <- quantile(meanEst1, 0.02)
-S2 <- quantile(meanEst1, 0.98)
-
-T1 <- mean(meanEst1) + sd(meanEst1) / sqrt(k) * qnorm(0.02, k - 1)
-T2 <- mean(meanEst1) + sd(meanEst1) / sqrt(k) * qnorm(0.98, k - 1)
-
-print(sprintf("El cuantil empírico 0.02 es %2.3f", S1))
-print(sprintf("El cuantil empírico 0.98 es %2.3f", S2))
-print(sprintf("El cuantil T 0.02 es %2.3f", T1))
-print(sprintf("El cuantil T 0.98 es %2.3f", T2))
+Ahora, mostramos los intervalos de confianza por el método normal de los cuantiles $\overline{q_1}$, $\overline{q_2}$, $\sd{q_1}$, $\sd{q_2}$ obtenidos por bootstrap paramétrico.
+<<t6normal>>=
 @
-
+Finalmente, mostramos los intervalos de confianza por el método pivotal de los cuantiles $\overline{q_1}$, $\overline{q_2}$, $\sd{q_1}$, $\sd{q_2}$ obtenidos por bootstrap paramétrico.
+<<t6pivotal>>=
+@
 \bibliography{biblio}
 \bibliographystyle{IEEEtranS}
 \end{document}
